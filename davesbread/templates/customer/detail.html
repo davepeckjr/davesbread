@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block section %}
+
+<table>
+  <tr>
+    <td>
+      <img src="{{ menu_item.image_path }}">
+    </td>
+    <td>
+      <h3>{{ menu_item.name }}</h3>
+      <br>
+      <p> {{ menu_item.description }}</p>
+    </td>
+    <td>
+       <form action="{{ url_for('add_to_order', menu_item_id=menu_item.id) }}" 
+             method=post>
+        {{ form.hidden_tag() }}
+        
+        {{ form.side }}
+        
+        {{ form.quantity.label }}
+        {{ form.quantity }}
+        
+        {{ form.submit }}
+       </form>
+    </td>
+  </tr>
+<table>
+
+{% endblock %}

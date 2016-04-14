@@ -1,0 +1,30 @@
+TODO: (in no particular order)
+
+1. Add the ability to edit orders (e.g. update quantity, change side)
+3. Allow users to define pick-up time
+5. Consider breaking up large functions
+6. Attempt to add consistency (i.e. in review_order, change everything to 
+   Class.query statt db.session.query)
+7. Remove submit button from review order page when cart is empty
+8. Fix review order button
+
+
+
+Manager views:
+
+*View current orders:
+    ^Fix layout
+    ^Make table pretty
+    ^Add glyphicon checkmark to current orders page
+
+*Order Details Page:
+    ^Fix layout
+    ^Add contact customer and mark ready for pick up buttons/functions
+
+Search orders
+
+Email a customer in the event of order issues
+
+(Maybe) stock out products
+
+(Maybe) think of a quick implementation for taking phone ins

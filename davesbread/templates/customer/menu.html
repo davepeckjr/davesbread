@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+<ul>
+  <li><a href="{{ url_for('menu', category="all") }}"> All </a></li>
+  <li><a href="{{ url_for('menu', category="sandwiches") }}">Sandwiches</a></li>
+  <li><a href="{{ url_for('menu', category="salads") }}">Salads</a></li>
+  <li><a href="{{ url_for('menu', category="soups") }}">Soups</a></li>
+</ul>
+{% endblock %}
+
+{% block section %}
+  {% for item in menu_items %}
+    {% include "customer/menu_items.html" %}
+  {% endfor %}
+{% endblock %}

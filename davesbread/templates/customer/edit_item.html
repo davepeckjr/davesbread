@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table>
+  <tr>
+    <td>
+      <img src="{{ item.menu_item.image_path }}">
+    </td>
+    <td>
+      <h3>{{ item.menu_item.name }}</h3>
+      <br>
+      <p> {{ item.menu_item.description }}</p>
+    </td>
+    <td>
+       <form method="post">
+        {{ form.hidden_tag() }}
+        
+        {{ form.side }}
+        
+        {{ form.quantity.label }}
+        {{ form.quantity }}
+        
+        {{ form.submit }}
+       </form>
+    </td>
+  </tr>
+<table>
+
+{% endblock %}

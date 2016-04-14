@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/style/main.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  {% if title %}
+    <title>{{ title }}</title>
+  {% else %}
+    <title>Dave's Bread</title>
+  {% endif %}
+</head>
+
+<body>
+
+<div id="header">
+  {% block header %}
+  {% endblock %}
+</div>
+
+
+<div id="top-nav">
+  <ul>
+    <li><a href="{{ url_for('index') }}">Home</a></li>
+    <li><a href="{{ url_for('menu', category="all") }}">Menu</a></li>
+    {% if session['cart'] %}
+    <li><a href="{{ url_for('review_order') }}">Review Order</a></li>
+    {% endif %}
+    {% if current_user.is_authenticated %}
+    <li style="float:right"><a href="{{ url_for('logout') }}">Logout</a></li>
+    {% else %}
+    <li><a href="{{ url_for('user.login') }}">Login</a></li>
+    {% endif %}
+  </ul>
+</div>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash">
+    <a href="#" class="close" data-dismiss="alert" aria-lable="close">&times;</a>
+      <ul>
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div id="wrapper">
+
+{% block content %}
+{% endblock %}
+
+<div id="sidebar">
+  {% block sidebar %}
+  {% endblock %}
+</div>
+
+<div id="section">
+  {% block section %}
+  {% endblock %}
+</div>
+</div>
+
+<div id="footer">
+  <p> &copy; Dave's Bread 2031 </p>
+</div>
+
+</body>
+</html>
+

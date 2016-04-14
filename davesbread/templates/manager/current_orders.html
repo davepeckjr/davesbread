@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+      <ul>
+        <li><a href="{{ url_for('current_orders') }}">Current Orders</a></li>
+        <li><a href="">Search Orders</a></li>
+        <li><a href="">Stock Items Out</a></li>
+      </ul>
+{% endblock %}
+    
+{% block section %}
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Order Recived On</th>
+          <th>Pick Up Date</th>
+          <th>Order Total</th>
+          <th>Order Completed</th>
+          <th>Details</th>
+        </tr>
+        {% for order in orders %}
+        <tr class="{{ loop.cycle('odd', 'even') }}">
+          <td> {{ order.user.first_name }} {{ order.user.last_name }} </td>
+          <td> {{ order.submitted_on }} </td>
+          <td> {{ order.pick_up_date }} </td>
+          <td> {{ order.order_total() }} </td>
+          <td> {{ order.ready_for_pickup }} </td> 
+          <td><a href="{{ url_for('order_details', order_id=order.id) }}">Details</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+{% endblock %}

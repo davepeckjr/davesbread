@@ -1,0 +1,28 @@
+#header {
+    background-color:#808080;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+
+#footer {
+    background-color:#808080;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;
+}
+
+.button {
+    background-color: #808080;
+    border: none;
+    color: white;
+    text-align: center;
+}
+
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+}

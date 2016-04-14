@@ -1,0 +1,32 @@
+#header {
+    background-color: gray;
+    color: white;
+    text-align: left;
+}
+
+ul.top-nav-links {
+    list-style-type: none;
+    display: inline;
+}
+
+#sidebar {
+    width: 20%;
+    float: left;
+}
+
+ul.menu-nav {
+    list-style-type: none;
+    background-color: gray;
+    display: block;
+}
+
+#section {
+    float: left;
+    margin-left: 20%
+}
+
+#footer {
+    background-color: gray;
+    color: white;
+    text-align: center;
+}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block section %}
+            {% for item in menu_items %}
+            <div class="container-fluid">
+            <table class="table table-hover">
+                <tr>
+                <td width="70px">
+                    <a href="{{ url_for('detail',menu_item_name=item.menu_item.name) }}">
+                    <img height=100 width=100 src="{{ item.menu_item.image_path }}" /></a>
+                </td>
+                <td>
+                    <p><strong> {{ item.menu_item.name }} </strong></p>
+                    <br>
+                    <p>{{ item.menu_item.description }}</p>
+                    <br>
+                    <p> Side: {{ item.side_item.name }} </p>
+                    <br>
+                    <p> Price: {{ item.menu_item.price }}</p>
+                </td>
+                </tr>
+            </table>
+        </div>
+            {% endfor %}
+    </div>
+    </div>
+
+
+{% endblock %}
