@@ -2,7 +2,8 @@ from flask import flash, redirect, session, url_for, render_template, request
 from flask.ext.user import login_required, current_user
 from davesbread import davesbread, db#, lm
 from .models import MenuItems, Orders, OrderItems
-from .forms import OrderForm, EditOrderForm
+from .forms import OrderForm, EditOrderForm, FinalForm
+from .util import send_email
 import datetime
 
 def order_loader():
@@ -82,13 +83,27 @@ def remove_from_order(order_item_id):
     flash('Item removed from order')
     return redirect(url_for('review_order'))
 
-@davesbread.route('/submit_order')
+@davesbread.route('/submit_order', methods=['GET', 'POST'])
 @login_required
 def submit_order():
+    form = FinalForm()
     order = Orders.query.filter_by(user_id=current_user.id, submitted=False).first()
+    order.pick_up_date = form.pick_up_time.data
+    order.special_instructions = form.special_instructions.data
     order.submitted=True
     order.submitted_on = datetime.datetime.now()
     db.session.commit()
     session['cart'] = False
+    send_email(to=user.email, 
+				   subject="Dave's Bread Order", 
+				   html=render_template(emails/order_confirm.html))
     flash('Order submitted. A confirmation email will arrive shortly.')
     return redirect(url_for('index'))
+
+@davesbread.route('/finalize', methods=['GET', 'POST'])
+@login_required
+def finalize():
+    form = FinalForm()
+    if form.validate_on_submit():
+        submit_order()
+    return render_template('customer/finalize.html', form=form, user=current_user)

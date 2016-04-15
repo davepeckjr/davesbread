@@ -2,6 +2,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField, BooleanField, PasswordField, SubmitField,\
                     SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, Email
+from wtforms.ext.dateutil.fields import DateTimeField
 from davesbread.models import User, MenuItems
 
 class LoginForm(Form):
@@ -71,6 +72,19 @@ class EditOrderForm(Form):
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
 
+    def validate(self):
+        if not Form.validate(self):
+            return False
+
+class FinalForm(Form):
+#This isn't even my final form.....
+    pick_up_time = DateTimeField('Pickup Time', display_format='%d-%m-%Y %H:%M')
+    special_instructions = StringField("Special Instructions")
+    submit = SubmitField("Submit")
+    
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+    
     def validate(self):
         if not Form.validate(self):
             return False
