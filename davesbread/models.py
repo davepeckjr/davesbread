@@ -76,6 +76,7 @@ class MenuItems(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), index=True, unique=True)
     category = db.Column(db.String(50))
+    stocked_out = db.Column(db.Boolean)
     price = db.Column(db.Float(6))
     description = db.Column(db.String(140))
     image_path = db.Column(db.String(140), unique=True)
@@ -87,10 +88,11 @@ class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created_on = db.Column(db.DateTime)
-    submitted = db.Column(db.Boolean)
+    submitted = db.Column(db.Boolean, default=False)
     submitted_on = db.Column(db.DateTime)
     pick_up_date = db.Column(db.DateTime)
     ready_for_pick_up = db.Column(db.Boolean)
+    special_instructions = db.Column(db.String(140))
     order_items = db.relationship('OrderItems', 
                                    backref='orders',
                                    cascade='delete, delete-orphan',

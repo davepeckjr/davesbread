@@ -1,5 +1,5 @@
 from flask import flash, redirect, session, url_for, render_template, request
-from flask.ext.user import login_required, current_user
+from flask.ext.user import login_required, current_user, roles_required
 from davesbread import davesbread, db#, lm
 from .models import MenuItems, Orders, OrderItems
 from .forms import OrderForm, EditOrderForm, FinalForm
@@ -94,9 +94,9 @@ def submit_order():
     order.submitted_on = datetime.datetime.now()
     db.session.commit()
     session['cart'] = False
-    send_email(to=user.email, 
+    send_email(to=current_user.email, 
 				   subject="Dave's Bread Order", 
-				   html=render_template(emails/order_confirm.html))
+				   html=render_template('emails/order_confirm.html'))
     flash('Order submitted. A confirmation email will arrive shortly.')
     return redirect(url_for('index'))
 
@@ -107,3 +107,13 @@ def finalize():
     if form.validate_on_submit():
         submit_order()
     return render_template('customer/finalize.html', form=form, user=current_user)
+
+@davesbread.route('/ready/<order_id>')
+@login_required
+@roles_required('manager')
+def ready(order_id):
+    order = Orders.query.filter_by(id=order_id).first()
+    order.ready_for_pick_up = True
+    db.session.commit()
+    flash('Order marked ready for pick up')
+    return redirect(url_for('order_details', order_id=order_id))

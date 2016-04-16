@@ -1,14 +1,22 @@
-{% extends "base.html" %}
+{% extends "manager_base.html" %}
 
-{% block sidebar %}
-      <ul>
-        <li><a href="{{ url_for('current_orders') }}">Current Orders</a></li>
-        <li><a href="">Search Orders</a></li>
-        <li><a href="">Stock Items Out</a></li>
-      </ul>
-{% endblock %}
-    
 {% block section %}
+<style>
+table, th, td {
+    padding: 5px;
+    border: 1px solid black;
+    text-align: center;
+}
+table {
+    border: collapse;
+}
+td {
+    padding: 5px;
+}
+</style>
+
+<h2> Current Orders </h2>
+
       <table>
         <tr>
           <th>Name</th>
@@ -24,7 +32,11 @@
           <td> {{ order.submitted_on }} </td>
           <td> {{ order.pick_up_date }} </td>
           <td> {{ order.order_total() }} </td>
-          <td> {{ order.ready_for_pickup }} </td> 
+          {% if order.ready_for_pick_up %}
+            <td><span class="glyphicon glyphicon-ok"></span></td>
+          {% else %}
+            <td><span class="glyphicon glyphicon-minus-sign"></span></td>            
+          {% endif %}
           <td><a href="{{ url_for('order_details', order_id=order.id) }}">Details</a></td>
         </tr>
         {% endfor %}

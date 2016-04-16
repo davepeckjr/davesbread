@@ -1,16 +1,9 @@
-{% extends "base.html" %}
+{% extends "manager_base.html" %}
 
 {% block section %}
 
-<table>
-  <tr> 
-    <td><a href="{{ url_for('current_orders') }}">Current Orders</a></td>
-    <td><a href="{{ url_for('search_orders') }}">Search Orders</a></td>
-  </tr>
-  <tr>
-    <td><a href="{{ url_for('stock_out') }}">Stock Items Out</a></td>
-    <td><a href="">Enter Phone In</a></td>
-  </tr>
-</table>
+<h2> Manager Home </h2>
+
+<p> Maybe show total sales for the day or something here </p>
 
 {% endblock %}
