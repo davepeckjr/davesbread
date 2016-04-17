@@ -27,7 +27,7 @@
     <li><a href="{{ url_for('manager') }}">Home</a></li>
     <li><a href="{{ url_for('current_orders') }}">Current Orders</a></li>
 	<li><a href="{{ url_for('search_orders') }}">Search Orders</a></li>
-    <li><a href="{{ url_for('stock_out') }}">Stock Items Out</a></li>
+    <li><a href="{{ url_for('stock_list') }}">Stock Items Out</a></li>
     {% if current_user.is_authenticated %}
     <li style="float:right"><a href="{{ url_for('logout') }}">Logout</a></li>
     {% else %}

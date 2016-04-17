@@ -15,9 +15,9 @@ def index():
 @davesbread.route('/menu/<category>')
 def menu(category):
     if category == 'all':
-        menu_items=MenuItems.query.all()
+        menu_items=MenuItems.query.filter_by(stocked_out=False).all()
     else:
-        menu_items = MenuItems.query.filter_by(category=category).all()
+        menu_items = MenuItems.query.filter_by(category=category, stocked_out=False).all()
     return render_template('customer/menu.html', title="Dave's Bread - Menu", 
                             menu_items=menu_items, user=current_user)
 

@@ -41,11 +41,29 @@ def contact_customer():
                             user=current_user, 
                             form=form)
 
-@davesbread.route('/manager/stock_out')
+@davesbread.route('/manager/stock_list')
 @login_required
 @roles_required('manager')
-def stock_out():
-    return render_template('manager/stock_out.html')
+def stock_list():
+    menu_items = MenuItems.query.all()
+    return render_template('manager/stock_list.html',
+                            menu_items=menu_items)
+
+@davesbread.route('/stock_setter/<menu_item_id>')
+@login_required
+@roles_required('manager')
+def stock_setter(menu_item_id):
+    item = MenuItems.query.filter_by(id=menu_item_id).first()
+    if item.stocked_out:
+        item.stocked_out = False
+        db.session.commit()
+        flash('Item stocked in')
+    else:
+        item.stocked_out = True
+        db.session.commit()
+        flash('Item stocked out')
+    return redirect(url_for('stock_list'))
+    
 
 @davesbread.route('/manager/search_orders')
 @login_required

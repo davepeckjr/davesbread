@@ -76,7 +76,7 @@ class MenuItems(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), index=True, unique=True)
     category = db.Column(db.String(50))
-    stocked_out = db.Column(db.Boolean)
+    stocked_out = db.Column(db.Boolean, default=False)
     price = db.Column(db.Float(6))
     description = db.Column(db.String(140))
     image_path = db.Column(db.String(140), unique=True)
