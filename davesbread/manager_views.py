@@ -1,7 +1,9 @@
 from flask import flash, redirect, url_for, render_template
 from flask.ext.user import roles_required, login_required, current_user
-from davesbread import davesbread, db#, lm
+from davesbread import davesbread, db
 from .models import User, Orders, MenuItems, OrderItems
+from .forms import ContactCustomerForm
+from .util import send_email
 
 @davesbread.route('/manager')
 @roles_required('manager')
@@ -28,6 +30,17 @@ def order_details(order_id):
                             order=order,
                             menu_items=menu_items)
 
+@davesbread.route('/manager/contact_customer')
+@login_required
+@roles_required('manager')
+def contact_customer():
+    form = ContactCustomerForm()
+    if form.validate_on_submit():
+        email_customer(current_user.id)
+    return render_template('manager/contact_customer.html', 
+                            user=current_user, 
+                            form=form)
+
 @davesbread.route('/manager/stock_out')
 @login_required
 @roles_required('manager')
@@ -39,3 +52,18 @@ def stock_out():
 @roles_required('manager')
 def search_orders():
     return render_template('manager/search_orders.html')
+
+@davesbread.route('/manager/email_customer/<id>', methods=['GET', 'POST'])
+@login_required
+@roles_required('manager')
+def email_customer(id):
+    form = ContactCustomerForm()
+    body = form.body.data
+    user = User.query.filter_by(id=id).first()
+    send_email(to=user.email,
+			   subject="We got a quick question for you",
+			   html=render_template('emails/email_customer.html', 
+									 body=body)
+			   )
+    flash('Email sent.')
+    return redirect(url_for('current_orders'))

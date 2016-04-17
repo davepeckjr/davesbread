@@ -6,7 +6,7 @@
   {% else %}
   <a href="" role="button" class="btn btn-info">Order Ready</a>
   {% endif %}
-  <a href="" role="button" class="btn btn-primary">Contact Customer</a>
+  <a href="{{ url_for('contact_customer') }}" role="button" class="btn btn-primary">Contact Customer</a>
 {% endblock %}
 
 {% block section %}

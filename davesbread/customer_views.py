@@ -17,7 +17,7 @@ def menu(category):
     if category == 'all':
         menu_items=MenuItems.query.all()
     else:
-            menu_items = MenuItems.query.filter_by(category=category).all()
+        menu_items = MenuItems.query.filter_by(category=category).all()
     return render_template('customer/menu.html', title="Dave's Bread - Menu", 
                             menu_items=menu_items, user=current_user)
 
@@ -30,6 +30,8 @@ def detail(menu_item_name):
     return render_template('customer/detail.html', title="Dave's Bread - " + menu_item.name,
                             menu_item=menu_item, form=form, user=current_user)
 
+
+"""
 @davesbread.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -47,14 +49,14 @@ def login():
             return redirect(url_for('login'))
     return render_template('customer/login.html', form=form, user=current_user, 
                             title="Dave's Bread - Login")
-
+"""
 @davesbread.route('/logout')
 @login_required
 def logout():
     logout_user()
     session.clear()
     return redirect(url_for('index'))
-
+"""
 @davesbread.route('/signup', methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
@@ -71,3 +73,4 @@ def signup():
         return redirect(url_for('index'))
     return render_template('customer/signup.html', form=form, user=current_user, 
                             title="Dave's Bread - Sign Up")
+"""

@@ -1,7 +1,11 @@
+*{ margin: 0; padding: 0;}
+
 #header {
     background-color: #333;
     color: white;
     text-align: left;
+    padding-bottom: 5px;
+    padding-left: 12px;
 }
 
 #top-nav ul {
@@ -26,11 +30,9 @@
 
 #top-nav li a:hover {background-color: #111;}
 
-#wrapper {
-    margin-top: 10px;
-}
 
 #sidebar {
+    margin-top: 20px;
     float: left;
     width: 20%;
 }
@@ -56,16 +58,17 @@
 }
 
 #section {
-    margin-left: 5px;
+    padding: 10px;
     float: left;
+    padding-bottom: 20px;
 }
 
 #footer {
+    height: 30px;
     background-color:#333;
     color:white;
 	clear: both;
     text-align:center;
-    padding:5px;
 }
 
 .flash { 
@@ -76,18 +79,4 @@
 .error { 
     background: #f0d6d6; 
     padding: 0.5em; 
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th {
-    height: 50px;
-}
-
-th, td {
-    padding: 15px;
-    text-align: left;
 }

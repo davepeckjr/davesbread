@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, BooleanField, PasswordField, SubmitField,\
-                    SelectField, IntegerField
+                    SelectField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email
 from wtforms.ext.dateutil.fields import DateTimeField
 from davesbread.models import User, MenuItems
@@ -81,6 +81,17 @@ class FinalForm(Form):
     pick_up_time = DateTimeField('Pickup Time', display_format='%d-%m-%Y %H:%M')
     special_instructions = StringField("Special Instructions")
     submit = SubmitField("Submit")
+    
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+    
+    def validate(self):
+        if not Form.validate(self):
+            return False
+
+class ContactCustomerForm(Form):
+    body = TextAreaField(validators=[DataRequired()])
+    submit = SubmitField("Send")
     
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)

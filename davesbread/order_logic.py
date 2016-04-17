@@ -33,8 +33,6 @@ def add_to_order(menu_item_id):
     side = form.side.data
     side_item = MenuItems.query.filter_by(id=int(side)).first()
     quantity = form.quantity.data
-    #if current_user.is_anonymous:
-        #return redirect(url_for('login'))
     menu_item = MenuItems.query.filter_by(id=id).first()
     order_exists = order_loader()
     if order_exists:

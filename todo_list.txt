@@ -1,30 +1,27 @@
 TODO: (in no particular order)
 
 1. Add the ability to edit orders (e.g. update quantity, change side)
-3. Allow users to define pick-up time
-5. Consider breaking up large functions
-6. Attempt to add consistency (i.e. in review_order, change everything to 
-   Class.query statt db.session.query)
-7. Remove submit button from review order page when cart is empty
-8. Fix review order button
-
-
+2. Remove submit button from review order page when cart is empty
+3. Force user to set up account details before placing an order
+4. Make active menu items a thing
+5. Redirect to manager home if manager
+6. Update forms to include hidden_tag or whatever so you don't look like a moron
 
 Manager views:
 
+
 *View current orders:
-    ^Fix layout
-    ^Make table pretty
-    ^Add glyphicon checkmark to current orders page
+    ^Make table prettier
 
-*Order Details Page:
-    ^Fix layout
-    ^Add contact customer and mark ready for pick up buttons/functions
+	
+*Search orders
 
-Search orders
+*Email a customer in the event of order 
+	^You'll need an email form, send email template, and an actual template for the email
 
-Email a customer in the event of order issues
-
-(Maybe) stock out products
+*Stock out products
+	^Almost the same gig as the current_orders layout/function, except instead of an order
+	 details button, it'll say stock out (btn-danger)
+	^Redirect back to same page and change icon to stock in (btn-primary)
 
 (Maybe) think of a quick implementation for taking phone ins
