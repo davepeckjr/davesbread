@@ -25,26 +25,18 @@ class LoginForm(Form):
             self.email.errors.append("Invalid e-mail or password")
             return False
 
-class SignupForm(Form):
-    firstname = StringField("First name", validators=[DataRequired()])
-    lastname = StringField("Last name", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Create account")
+class UpdateProfileForm(Form):
+    first_name = StringField("First name", validators=[DataRequired()])
+    last_name = StringField("Last name", validators=[DataRequired()])
+    phone_num = IntegerField("Phone Number", validators=[DataRequired()])
+    submit = SubmitField("Save")
     
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
-        
+
     def validate(self):
         if not Form.validate(self):
             return False
-        
-        user = User.query.filter_by(email=self.email.data.lower()).first()
-        if user:
-            self.email.errors.append("Email already in use")
-            return False
-        else:
-            return True
 
 class OrderForm(Form):
     side = SelectField('Side', coerce=int, 

@@ -1,0 +1,23 @@
+{% extends "manager_base.html" %}
+{% block section %}
+
+<h2> Contact Customer  </h2>
+<h3> {{ user.name }} </h3>
+
+<p><span class="glyphicon glyphicon-phone-alt"></span><strong> : {{ user.phone_num }} </strong></p>
+
+<h3> Email Customer: </h3>
+
+<form action="{{ url_for('email_customer', id=user.id) }}"
+      method=post>
+
+{{ form.hidden_tag() }}
+
+<p><strong> To: </strong> {{ user.email }} </p>
+<p><strong> Message: </strong></p>
+<p> {{ form.body }} </p>
+<p> {{ form.submit }} </p>
+
+</form>
+
+{% endblock %}

@@ -60,8 +60,10 @@ def add_to_order(menu_item_id):
 def edit_item(item_id):
     item = OrderItems.query.get(item_id)
     form = EditOrderForm()
-    if form.validate_on_submit():
-        item.side_item = form.side.data
+    if request.method=='POST':
+        side = form.side.data
+        side_item = MenuItems.query.filter_by(id=int(side)).first()
+        item.side_item = side_item
         item.quantity = form.quantity.data
         db.session.commit()
         flash('Order Updated')

@@ -102,3 +102,42 @@ def review_order():
                             menu_items=menu_items,
                             sides=sides, 
                             user=current_user)
+                            
+"""
+@davesbread.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data.lower()).first()
+        if user.check_password(form.password.data):
+            login_user(user)
+            order_exists = order_loader()
+            if order_exists:
+                session['cart'] = True
+            if 'manager' in user.roles:
+                return redirect(url_for('manager'))
+            return redirect(url_for('index'))
+        else:
+            return redirect(url_for('login'))
+    return render_template('customer/login.html', form=form, user=current_user, 
+                            title="Dave's Bread - Login")
+"""
+
+"""
+@davesbread.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = SignupForm()
+    if form.validate_on_submit():
+        user=User(firstname=form.firstname.data,
+                  lastname=form.lastname.data,
+                  email=form.email.data,
+                  password=form.password.data)
+        user.registered_on = datetime.datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('customer/signup.html', form=form, user=current_user, 
+                            title="Dave's Bread - Sign Up")
+"""

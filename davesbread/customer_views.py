@@ -4,7 +4,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from davesbread import davesbread, db#, lm
 from .models import MenuItems, User
 from order_logic import order_loader, add_to_order
-from forms import LoginForm, SignupForm, OrderForm
+from forms import LoginForm, UpdateProfileForm, OrderForm
 
 @davesbread.route('/', methods=['GET', 'POST'])
 @davesbread.route('/index', methods=['GET', 'POST'])
@@ -30,47 +30,23 @@ def detail(menu_item_name):
     return render_template('customer/detail.html', title="Dave's Bread - " + menu_item.name,
                             menu_item=menu_item, form=form, user=current_user)
 
-
-"""
-@davesbread.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data.lower()).first()
-        if user.check_password(form.password.data):
-            login_user(user)
-            order_exists = order_loader()
-            if order_exists:
-                session['cart'] = True
-            if 'manager' in user.roles:
-                return redirect(url_for('manager'))
-            return redirect(url_for('index'))
-        else:
-            return redirect(url_for('login'))
-    return render_template('customer/login.html', form=form, user=current_user, 
-                            title="Dave's Bread - Login")
-"""
 @davesbread.route('/logout')
 @login_required
 def logout():
     logout_user()
     session.clear()
     return redirect(url_for('index'))
-"""
-@davesbread.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    form = SignupForm()
-    if form.validate_on_submit():
-        user=User(firstname=form.firstname.data,
-                  lastname=form.lastname.data,
-                  email=form.email.data,
-                  password=form.password.data)
-        user.registered_on = datetime.datetime.now()
-        db.session.add(user)
+
+@davesbread.route('/update_profile', methods=['GET', 'POST'])
+@login_required
+def update_profile():
+    user = User.query.filter_by(id=current_user.id).first()
+    form = UpdateProfileForm()
+    if request.method=='POST':
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.phone_num = form.phone_num.data
         db.session.commit()
+        flash('Profile updated')
         return redirect(url_for('index'))
-    return render_template('customer/signup.html', form=form, user=current_user, 
-                            title="Dave's Bread - Sign Up")
-"""
+    return render_template('flask_user/user_profile.html', form=form)

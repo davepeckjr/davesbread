@@ -1,0 +1,38 @@
+{% extends "manager_base.html" %}
+
+{% block section %}
+
+<style>
+table, th, td {
+    padding: 5px;
+    border: 1px solid black;
+    text-align: center;
+}
+table {
+    border: collapse;
+}
+td {
+    padding: 5px;
+}
+</style>
+
+<h2> Stock Items Out </h2>
+
+<table> 
+  <tr>
+    <th> Menu Item </th>
+    <th> Stock Out </th>
+  </tr>
+  {% for item in menu_items %}
+  <tr>
+    <td> {{ item.name }} </td>
+    {% if item.stocked_out %}
+      <td><a href="{{ url_for('stock_setter', menu_item_id=item.id) }}" role="button" class="btn btn-primary">Stock In</a></td>
+    {% else %}
+      <td><a href="{{ url_for('stock_setter', menu_item_id=item.id) }}" role="button" class="btn btn-danger">Stock Out</a></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,6 +1,5 @@
 TODO: (in no particular order)
 
-1. Add the ability to edit orders (e.g. update quantity, change side)
 2. Remove submit button from review order page when cart is empty
 3. Force user to set up account details before placing an order
 4. Make active menu items a thing
@@ -16,12 +15,5 @@ Manager views:
 	
 *Search orders
 
-*Email a customer in the event of order 
-	^You'll need an email form, send email template, and an actual template for the email
-
-*Stock out products
-	^Almost the same gig as the current_orders layout/function, except instead of an order
-	 details button, it'll say stock out (btn-danger)
-	^Redirect back to same page and change icon to stock in (btn-primary)
 
 (Maybe) think of a quick implementation for taking phone ins
