@@ -8,9 +8,9 @@ Flask-WTF==0.12
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
-passlib=1.6.5
+passlib==1.6.5
 python-dateutil==2.5.2
-six=1.10.0
+six==1.10.0
 SQLAlchemy==1.0.12
 sqlalchemy-migrate==0.10.0
 sqlparse==0.1.19
