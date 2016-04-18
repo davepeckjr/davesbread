@@ -59,7 +59,9 @@ def add_to_order(menu_item_id):
 @login_required
 def edit_item(item_id):
     item = OrderItems.query.get(item_id)
-    form = EditOrderForm()
+    form = EditOrderForm
+    form.side.choices = [(s.id, s.name) for s in\
+                        MenuItems.query.filter_by(category='side').all()]
     if request.method=='POST':
         side = form.side.data
         side_item = MenuItems.query.filter_by(id=int(side)).first()

@@ -39,9 +39,7 @@ class UpdateProfileForm(Form):
             return False
 
 class OrderForm(Form):
-    side = SelectField('Side', coerce=int, 
-                        choices=[(s.id, s.name) for s in\
-                        MenuItems.query.filter_by(category='side').all()])
+    side = SelectField('Side', coerce=int)
                         
     quantity = IntegerField(default=1)
     submit = SubmitField("Add to Order")
@@ -54,9 +52,7 @@ class OrderForm(Form):
             return False
 
 class EditOrderForm(Form):
-    side = SelectField('Side', coerce=int,
-                        choices=[(s.id, s.name) for s in\
-                        MenuItems.query.filter_by(category='side').all()])
+    side = SelectField('Side', coerce=int)
                        
     quantity = IntegerField(default=1)
     submit = SubmitField("Update Order")

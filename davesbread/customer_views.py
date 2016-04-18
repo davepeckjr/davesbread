@@ -24,6 +24,8 @@ def menu(category):
 @davesbread.route('/detail/<menu_item_name>', methods=['GET', 'POST'])
 def detail(menu_item_name):
     form = OrderForm()
+    form.side.choices= [(s.id, s.name) for s in\
+                         MenuItems.query.filter_by(category='side').all()]
     menu_item = MenuItems.query.filter_by(name=menu_item_name).first_or_404()
     if form.validate_on_submit():
         add_to_order(menu_item.id)
