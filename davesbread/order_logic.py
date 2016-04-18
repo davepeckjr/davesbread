@@ -115,5 +115,8 @@ def ready(order_id):
     order = Orders.query.filter_by(id=order_id).first()
     order.ready_for_pick_up = True
     db.session.commit()
+    send_email(to=current_user.email, 
+				   subject="Dave's Bread Order", 
+				   html=render_template('emails/order_complete.html'))
     flash('Order marked ready for pick up', 'info')
     return redirect(url_for('order_details', order_id=order_id))
