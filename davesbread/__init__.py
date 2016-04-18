@@ -18,6 +18,23 @@ from .models import User
 db_adapter = SQLAlchemyAdapter(db, User)
 user_manager = UserManager(db_adapter, davesbread)
 
+if not davesbread.debug and os.environ.get('HEROKU') is None:
+    import logging
+    from logging.handlers import RotatingFileHandler
+    file_handler = RotatingFileHandler('tmp/davesbread.log', 'a', 1 * 1024 * 1024, 10)
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+    davesbread.logger.addHandler(file_handler)
+    davesbread.logger.setLevel(logging.INFO)
+    davesbread.logger.info('davesbread startup')
+
+if os.environ.get('HEROKU') is not None:
+    import logging
+    stream_handler = logging.StreamHandler()
+    davesbread.logger.addHandler(stream_handler)
+    davesbread.logger.setLevel(logging.INFO)
+    davesbread.logger.info('davesbread startup')
+
 #lm = LoginManager()
 #lm.init_app(davesbread)
 #lm.login_view = 'login'
