@@ -52,7 +52,7 @@ def add_to_order(menu_item_id):
         db.session.add(order)
         db.session.commit()
         session['cart'] = True
-    flash('Item added to order')
+    flash('Item added to order', 'info')
     return redirect(url_for('menu', category=menu_item.category))
 
 @davesbread.route('/edit_item/<item_id>', methods=['GET', 'POST'])
@@ -66,7 +66,7 @@ def edit_item(item_id):
         item.side_item = side_item
         item.quantity = form.quantity.data
         db.session.commit()
-        flash('Order Updated')
+        flash('Order Updated', 'info')
         return redirect(url_for('review_order'))
     return render_template('customer/edit_item.html', 
                             title="Dave's Bread - " + item.menu_item.name,
@@ -80,7 +80,7 @@ def remove_from_order(order_item_id):
     order = Orders.query.filter_by(user_id=current_user.id).first()
     OrderItems.query.filter_by(id=order_item_id).delete()
     db.session.commit()
-    flash('Item removed from order')
+    flash('Item removed from order', 'info')
     return redirect(url_for('review_order'))
 
 @davesbread.route('/submit_order', methods=['GET', 'POST'])
@@ -97,7 +97,7 @@ def submit_order():
     send_email(to=current_user.email, 
 				   subject="Dave's Bread Order", 
 				   html=render_template('emails/order_confirm.html'))
-    flash('Order submitted. A confirmation email will arrive shortly.')
+    flash('Order submitted! A confirmation email will arrive shortly', 'success')
     return redirect(url_for('index'))
 
 @davesbread.route('/finalize', methods=['GET', 'POST'])
@@ -115,5 +115,5 @@ def ready(order_id):
     order = Orders.query.filter_by(id=order_id).first()
     order.ready_for_pick_up = True
     db.session.commit()
-    flash('Order marked ready for pick up')
+    flash('Order marked ready for pick up', 'info')
     return redirect(url_for('order_details', order_id=order_id))

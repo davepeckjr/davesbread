@@ -57,11 +57,11 @@ def stock_setter(menu_item_id):
     if item.stocked_out:
         item.stocked_out = False
         db.session.commit()
-        flash('Item stocked in')
+        flash('Item stocked in', 'info')
     else:
         item.stocked_out = True
         db.session.commit()
-        flash('Item stocked out')
+        flash('Item stocked out', 'info')
     return redirect(url_for('stock_list'))
     
 
@@ -83,5 +83,5 @@ def email_customer(id):
 			   html=render_template('emails/email_customer.html', 
 									 body=body)
 			   )
-    flash('Email sent.')
+    flash('Email sent!', 'success')
     return redirect(url_for('current_orders'))

@@ -4,16 +4,9 @@ TODO: (in no particular order)
 3. Force user to set up account details before placing an order
 4. Make active menu items a thing
 5. Redirect to manager home if manager
-6. Update forms to include hidden_tag or whatever so you don't look like a moron
 
 Manager views:
-
-
-*View current orders:
-    ^Make table prettier
-
 	
 *Search orders
 
-
-(Maybe) think of a quick implementation for taking phone ins
+*Start thinking about a phone in taking interfac

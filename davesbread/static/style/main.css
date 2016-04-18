@@ -71,6 +71,10 @@
     text-align:center;
 }
 
+.active { 
+	background-color: #333FF;
+}
+
 .flash { 
     background: #cee5F5; 
     padding: 0.5em;
